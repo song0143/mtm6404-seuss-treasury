@@ -6,7 +6,7 @@ function BookDetails() {
     const [book, setBook] = useState(null);
 
     useEffect(() => {
-        fetch(`https://seussology.info/api/books/${id}`)  // 使用实际 API 地址
+        fetch(`https://seussology.info/api/books/${id}`)
             .then(response => {
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
@@ -18,7 +18,7 @@ function BookDetails() {
                 setBook(data);
             })
             .catch(error => {
-                console.error("Error fetching book details:", error);  // 打印错误信息
+                console.error("Error fetching book details:", error);
             });
     }, [id]);
 
@@ -29,8 +29,9 @@ function BookDetails() {
     return (
         <div>
             <h1>{book.title}</h1>
-            <img src={book.coverImage} alt={book.title} />
+            <img src={book.image} alt={book.title} style={{ width: '200px', height: '300px' }} />
             <p>{book.description}</p>
+            <p><strong>Year Published:</strong> {book.year_published}</p>
         </div>
     );
 }

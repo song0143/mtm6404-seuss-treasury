@@ -4,7 +4,7 @@ function Quotes() {
     const [quotes, setQuotes] = useState([]);
 
     useEffect(() => {
-        fetch('https://seussology.info/api/quotes/random/10')  // 使用实际 API 地址
+        fetch('https://seussology.info/api/quotes/random/10')
             .then(response => {
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
@@ -12,22 +12,24 @@ function Quotes() {
                 return response.json();
             })
             .then(data => {
-                console.log("Quotes data:", data);  // 打印获取到的名言数据
+                console.log("Quotes data:", data);
                 setQuotes(data);
             })
             .catch(error => {
-                console.error("Error fetching quotes:", error);  // 打印错误信息
+                console.error("Error fetching quotes:", error);
             });
     }, []);
 
     return (
-        <div>
+        <div className="page-container">
             <h1>Quotes</h1>
-            <ul>
+            <div className="quotes-container">
                 {quotes.map((quote, index) => (
-                    <li key={index}>{quote.text}</li>
+                    <div key={index} className="quote-card">
+                        <p>{quote.text}</p>
+                    </div>
                 ))}
-            </ul>
+            </div>
         </div>
     );
 }
