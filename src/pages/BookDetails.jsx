@@ -6,9 +6,20 @@ function BookDetails() {
     const [book, setBook] = useState(null);
 
     useEffect(() => {
-        fetch(`https://api.example.com/seuss/books/${id}`)  // 替换为实际 API 地址
-            .then(response => response.json())
-            .then(data => setBook(data));
+        fetch(`https://seussology.info/api/books/${id}`)  // 使用实际 API 地址
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log("Book data:", data);  // 打印书籍详情
+                setBook(data);
+            })
+            .catch(error => {
+                console.error("Error fetching book details:", error);  // 打印错误信息
+            });
     }, [id]);
 
     if (!book) {

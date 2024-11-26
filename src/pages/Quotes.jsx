@@ -4,9 +4,20 @@ function Quotes() {
     const [quotes, setQuotes] = useState([]);
 
     useEffect(() => {
-        fetch('https://api.example.com/seuss/quotes?limit=10')  // 替换为实际的 API 地址
-            .then(response => response.json())
-            .then(data => setQuotes(data));
+        fetch('https://seussology.info/api/quotes/random/10')  // 使用实际 API 地址
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log("Quotes data:", data);  // 打印获取到的名言数据
+                setQuotes(data);
+            })
+            .catch(error => {
+                console.error("Error fetching quotes:", error);  // 打印错误信息
+            });
     }, []);
 
     return (
